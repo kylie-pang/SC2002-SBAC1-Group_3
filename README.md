@@ -73,26 +73,41 @@ This project was developed as part of **SC2002 – Object-Oriented Design & Prog
 > Note: This is a simple console project using the default package.
 
 ```text
-src/
-├── Main.java                    # Entry point
-├── SystemController.java        # Main controller: login, menus, flows
-├── User.java                    # Abstract base class for all users
-├── Student.java                 # Student user & application logic
-├── CompanyRepresentative.java   # Company rep user & internship management
-├── CareerCenterStaff.java       # Staff user & approval/withdrawal logic
+SC2002 PROJECT/
+├── Main.java                       # Entry point – starts SystemController
 │
-├── InternshipOpportunity.java   # Internship listing (status, level, slots, visibility)
-├── InternshipApplication.java   # Student’s application to an opportunity
-├── ApplicationStatus.java       # Enum for application lifecycle
-├── OpportunityStatus.java       # Enum for opportunity lifecycle
-├── InternshipLevel.java         # Enum: BASIC / INTERMEDIATE / ADVANCED
+├── SystemController.java           # High-level coordinator: login, routing to controllers
 │
-├── UserManager.java             # Manages all users (students, reps, staff)
-├── OpportunityManager.java      # Stores & queries internship opportunities
-├── ApplicationManager.java      # Stores & queries internship applications
+├── User.java                       # Abstract base user class (ID, name, email, password)
+├── Student.java                    # Student entity & application-related logic
+├── CompanyRepresentative.java      # Company rep entity & internship management
+├── CareerCenterStaff.java          # Staff entity & approval / withdrawal actions
 │
-├── CsvReader.java               # Low-level CSV reader (generic)
-├── FileHandler.java             # Example data-access helpers (optional)
-├── StudentLoader.java           # Loads students from CSV
-├── StaffLoader.java             # Loads staff from CSV
-└── CompanyRepLoader.java        # (Optional) Load company reps from CSV
+├── ApplicationStatus.java          # Enum: PENDING, SUCCESSFUL, UNSUCCESSFUL, WITHDRAWN, etc.
+├── OpportunityStatus.java          # Enum: PENDING_APPROVAL, APPROVED, REJECTED, FILLED
+├── InternshipLevel.java            # Enum: BASIC, INTERMEDIATE, ADVANCED
+│
+├── InternshipOpportunity.java      # Internship listing: status, level, preferred major, slots, visibility
+├── InternshipApplication.java      # Represents a student’s application to an opportunity
+│
+├── UserManager.java                # Stores and finds all users (students, reps, staff)
+├── OpportunityManager.java         # Stores and queries internship opportunities
+├── ApplicationManager.java         # Stores and retrieves internship applications
+│
+├── UserController.java             # Abstract base controller for shared menu/auth behaviour
+├── StudentController.java          # Handles student flows (view/apply/withdraw/confirm)
+├── CompanyRepController.java       # Handles company rep flows (postings, visibility, approvals)
+├── StaffController.java            # Handles staff flows (approvals, withdrawals, reporting)
+│
+├── HasMenu.java                    # Small helper/interface to standardise menu display
+├── InternshipFilterSettings.java   # Stores per-user filter settings for viewing opportunities
+│
+├── CsvReader.java                  # Low-level CSV reader utility (generic)
+├── FileHandler.java                # Higher-level CSV helpers (loading domain objects)
+├── StudentLoader.java              # Builds Student objects from CSV
+├── StaffLoader.java                # Builds CareerCenterStaff objects from CSV
+├── CompanyRepLoader.java           # Builds CompanyRepresentative objects from CSV (optional)
+│
+├── sample_student_list.csv         # Sample student data
+├── sample_staff_list.csv           # Sample staff data
+└── sample_company_representative_list.csv  # Sample company rep data (if used)
